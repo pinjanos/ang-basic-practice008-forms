@@ -1,0 +1,54 @@
+<div class="row">
+  <div *ngIf="(event$ | async) as event" class="col-6 offset-3">
+    <form #eventForm="ngForm" (ngSubmit)="onUpdate(eventForm, event)">
+      <div class="form-group">
+        <label for="">Név</label>
+        <input name="name" [(ngModel)]="event.name" type="text"
+          class="form-control" pattern=".{8,25}" required>
+        <div [hidden]="eventForm.controls.name?.valid" class="error-message">
+          A névnek minimum 8 maximum 25 karakteresnek kell lennie.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Dátum</label>
+        <input name="date" [(ngModel)]="event.date" type="text"
+          class="form-control" pattern="^\d{1,2}/\d{1,2}/\d{4}$">
+      </div>
+      <div [hidden]="eventForm.controls.date?.valid" class="error-message">
+        Rossz dátum forma
+      </div>
+      <div class="form-group">
+        <label for="">Idő</label>
+        <input name="time" [(ngModel)]="event.time" type="text" class="form-control" pattern="^(0?[1-9]|1[0-2])\s*[aApP][mM]\s*$">
+      </div>
+      <div [hidden]="eventForm.controls.time?.valid" class="error-message">
+        Rossz idő forma
+      </div>
+      <div class="form-group">
+        <label for="">Ország</label>
+        <input name="country" [(ngModel)]="event.location.country" type="text" class="form-control" pattern="[A-Z\s]{5,25}">
+      </div>
+      <div [hidden]="eventForm.controls.country?.valid" class="error-message">
+        Az ország névnek minimum 5 maximum 25 karakteresnek kell lennie és csupa nagybetű.
+      </div>
+      <div class="form-group">
+        <label for="">Város</label>
+        <input name="city" [(ngModel)]="event.location.city" type="text" class="form-control" pattern="^[A-Z]{1}.{5,25}">
+      </div>
+      <div [hidden]="eventForm.controls.city?.valid" class="error-message">
+        A Város névnek minimum 5 maximum 25 karakteresnek kell lennie és nagybetűvel kezdődik.
+      </div>
+      <div class="form-group">
+        <label for="">Cím</label>
+        <input name="address" [(ngModel)]="event.location.address" type="text" class="form-control" pattern=".{10,50}">
+      </div>
+      <div [hidden]="eventForm.controls.address?.valid" class="error-message">
+        A címnek minimum 10 maximum 50 karakteresnek kell lennie.
+      </div>
+
+      <button [disabled]="eventForm.invalid" type="submit" class="btn btn-primary btn-block btn-lg">
+        <i class="fa fa-save"></i>
+      </button>
+    </form>
+  </div>
+</div>
